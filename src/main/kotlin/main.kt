@@ -1,48 +1,31 @@
 package ru.netology
 
-const val ACCOUNT_TYPE_MASTER = "MasterCard, Maestro"
-const val ACCOUNT_TYPE_VISA = "Visa, Мир"
-const val ACCOUNT_TYPE_VK_PAY = "VK Pay"
+fun calculateCommission(
+    userCard: String = "Vk Pay",
+    transferAmountMonth: Int = 0,
+    transferAmountUser: Int,
+): Int {
+    val amount = transferAmountUser * 100
+    val commission: Int =
+            if (transferAmountMonth <= 600_000 && userCard == "MasterCard, Maestro" || userCard == "Vk Pay" && transferAmountMonth <= 40_000) 0
+            else (amount / 100 * 0.75).toInt()
+    return (commission)
+    //println("$commission")
+
+}
 
 fun main() {
-    val transferAmount: Int
-    val previousTransfer: Int
-    commissionCalculate(54222, 0, "Visa, Мир")
+    var result = calculateCommission(userCard = "Visa", transferAmountUser = 5000)
+
+    println("Коммиссия $result копеек")
 
 }
 
-fun commissionCalculate(transferAmount: Int, previousTransfer: Int, ACCOUNT_TYPE_VK_PAY: String) {
+/*fun main() {
+    var transferRub = 10000
+    val amount = transferRub * 100
+    val commission: Int = (amount / 100 * 0.75).toInt()
+    val result = if (commission <= 3500) 3500 else commission
+    println("Total commission = $result kopecks")
 
-    val userType = ACCOUNT_TYPE_VK_PAY
-    val commission = when (userType) {
-        ACCOUNT_TYPE_VK_PAY -> {
-            when {
-                ((transferAmount + previousTransfer) >= 40_000) -> println("Превышена сумма месячного перевода средств")
-                (transferAmount >= 15_000) -> println("Превышена сумма перевода за одну транзакцию")
-                else -> 0
-            }
-        }
-        ACCOUNT_TYPE_VISA -> {
-            when {
-                ((transferAmount + previousTransfer) >= 150_000) -> println("Превышена сумма перевода в сутки")
-                ((transferAmount + previousTransfer) >= 600_000) -> println("Превышена сумма перевода в месяц")
-                else -> {
-                    val minCommission = 3_500
-                    val calculate = (transferAmount * 0.0075 * 100).toInt()
-                    if (calculate < minCommission) minCommission else calculate
-                }
-            }
-        }
-        ACCOUNT_TYPE_MASTER -> {
-            when {
-                ((transferAmount + previousTransfer) >= 600_000) -> println("Превышена сумма перевода в месяц")
-                ((transferAmount + previousTransfer) >= 150_000) -> println("Превышена сумма перевода в сутки")
-                transferAmount < 75_000 -> 0
-                transferAmount in 75_000..150_000 -> ((transferAmount * 0.006 * 100) + 2_000).toInt()
-                else -> error("Введено не верное значение")
-            }
-        }
-        else -> error("Неподдерживаемый тип платежной системы")
-    }
-    println("Комиссия составляет $commission копеек")
-}
+} */
