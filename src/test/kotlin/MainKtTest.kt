@@ -86,7 +86,7 @@ class MainKtTest {
     }
 
     @Test
-    fun calculateCommissionMastercard() {
+    fun calculateCommissionMastercardM() {
         val card = "MasterCard, Maestro"
         val month = 0
         val transfer = 900
