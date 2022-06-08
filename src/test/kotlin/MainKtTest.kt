@@ -20,4 +20,37 @@ class MainKtTest {
         assertEquals(0, result)
 
     }
+
+    @Test
+    fun calculateCommissionVisa() {
+        val card = "Visa"
+        val month = 390
+        val transfer = 32000
+
+        val result = calculateCommission(
+            userCard = card,
+            transferAmountMonth = month,
+            transferAmountUser = transfer
+        )
+
+        assertEquals(24000, result)
+
+    }
+
+    @Test
+    fun calculateCommissionMaster() {
+        val card = "MasterCard, Maestro"
+        val month = 790
+        val transfer = 100
+
+        val result = calculateCommission(
+            userCard = card,
+            transferAmountMonth = month,
+            transferAmountUser = transfer
+        )
+
+        assertEquals(0, result)
+
+    }
+
 }
